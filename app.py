@@ -22,8 +22,8 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 
 # Admin authentication
-app.secret_key = os.environ["ROADWATCH_SECRET_KEY"]
-ADMIN_PASSWORD = os.environ["ROADWATCH_ADMIN_PASSWORD"]
+app.secret_key = os.environ["SafeRoute_SECRET_KEY"]
+ADMIN_PASSWORD = os.environ["SafeRoute_ADMIN_PASSWORD"]
 
 def admin_required(function):
     @wraps(function)
@@ -54,7 +54,7 @@ def allowed_file(filename):
     )
 
 
-DATABASE = "roadwatch.db"
+DATABASE = "SafeRoute.db"
 
 
 def init_db():
