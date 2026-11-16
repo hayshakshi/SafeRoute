@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>View Reports | SafeRoute</title>
+
+<link rel="stylesheet"
+      href="/static/style.css?v=10">
+
+</head>
+<body>
+    <header>
+
+<a href="/" class="logo-link">
+    <img src="{{ url_for('static', filename='SafeRoute Road Swoosh Logo.png') }}"
+         alt="SafeRoute Logo"
+         class="site-logo">
+</a>
+
+        <nav>
+            <a href="/">Home</a>
+            <a href="/report">Report Damage</a>
+            <a href="/reports">View Reports</a>
+            <a href="/track">Track Report</a>
+        </nav>
+    </header>
+
+    <section class="report-section">
+        <h1>Road Damage Reports</h1>
+        <p>View submitted road-damage reports.</p>
+
+        {% for report in reports %}
+        <div class="report-card">
+            <h3>Report #{{ report["id"] }}</h3>
+            <p><strong>Location:</strong>
+               {{ report["location"] }}</p>
+
+{% if report["latitude"] is not none and report["longitude"] is not none %}
+    <p>
+        <strong>Map Location:</strong>
+        <a href="https://www.openstreetmap.org/?mlat={{ report['latitude'] }}&mlon={{ report['longitude'] }}#map=17/{{ report['latitude'] }}/{{ report['longitude'] }}"
+           target="_blank"
+           rel="noopener noreferrer">
+            📍 View on Map
+        </a>
+    </p>
+{% endif %}
+            <p><strong>Damage:</strong>
+               {{ report["damage_type"] }}</p>
+            <p><strong>Description:</strong>
+               {{ report["description"] }}</p>
+
+{% if report["photo"] %}
+    <img
+        src="{{ url_for('static',
+                       filename='uploads/' ~ report['photo']) }}"
+        alt="Reported road damage"
+        class="report-photo">
+{% endif %}
+
+            <p><strong>Status:</strong>
+               {{ report["status"] }}</p>
+        </div>
+        {% else %}
+        <p>No reports submitted yet.</p>
+        {% endfor %}
+    </section>
+</body>
+</html>

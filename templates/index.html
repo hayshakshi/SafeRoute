@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="RoadWatch helps communities report potholes and road damage.">
+
+    <title>SafeRoute</title>
+
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='style.css', v='2') }}">
+
+</head>
+
+<body class="home-page">
+
+    <!-- NAVIGATION -->
+    <header class="home-header">
+        <div class="home-nav-container">
+
+<a href="/" class="home-logo logo-link">
+    <img
+        src="{{ url_for('static', filename='SafeRoute Road Swoosh Logo.png') }}"
+        alt="SafeRoute Logo"
+        class="site-logo">
+</a>
+
+            <nav class="home-desktop-nav" aria-label="Main navigation">
+                <a href="/">Home</a>
+                <a href="/report">Report Damage</a>
+                <a href="/reports">View Reports</a>
+                <a href="/track">Track Report</a>
+            </nav>
+
+            <details class="home-mobile-menu">
+                <summary aria-label="Open navigation menu">
+                    ☰
+                </summary>
+                <nav aria-label="Mobile navigation">
+                    <a href="/">Home</a>
+                    <a href="/report">Report Damage</a>
+                    <a href="/reports">View Reports</a>
+                    <a href="/track">Track Report</a>
+                </nav>
+            </details>
+        </div>
+    </header>
+
+    <main class="home-main">
+
+        <!-- HERO SECTION -->
+        <section class="home-hero">
+            <div class="home-container home-hero-content">
+
+                <span class="home-eyebrow">
+                    COMMUNITY ROAD SAFETY
+                </span>
+
+                <h1>
+                    Safer Roads
+                    <span>Start With You.</span>
+                </h1>
+
+                <p class="home-hero-description">
+                    Spotted a pothole or damaged road?
+                    Report it with a photograph and map
+                    location, then track its progress.
+                </p>
+
+                <div class="home-hero-buttons">
+                    <a href="/report"
+                       class="home-primary-btn">
+                        Report Road Damage
+                    </a>
+
+                    <a href="/track"
+                       class="home-secondary-btn">
+                        Track Your Report
+                    </a>
+                </div>
+
+                <div class="home-highlight">
+                    <span>📍</span>
+                    <p>
+                        Report damage.
+                        Identify locations.
+                        Follow progress.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- HOW IT WORKS -->
+        <section class="home-how">
+            <div class="home-container">
+
+                <span class="home-section-tag">
+                    SIMPLE AND EASY
+                </span>
+
+                <h2>How SafeRoute Works</h2>
+
+                <p class="home-section-description">
+                    Three simple steps to report
+                    road damage in your community.
+                </p>
+
+                <div class="home-steps">
+
+                    <div class="home-step-card">
+                        <div class="home-step-icon">📸</div>
+                        <h3>1. Report Damage</h3>
+                        <p>
+                            Describe the pothole or
+                            damaged road and upload
+                            a photograph.
+                        </p>
+                    </div>
+
+                    <div class="home-step-card">
+                        <div class="home-step-icon">📍</div>
+                        <h3>2. Mark Location</h3>
+                        <p>
+                            Select the damaged road's
+                            location using our
+                            interactive map.
+                        </p>
+                    </div>
+
+                    <div class="home-step-card">
+                        <div class="home-step-icon">✅</div>
+                        <h3>3. Track Progress</h3>
+                        <p>
+                            Use your report ID to
+                            check whether the issue
+                            is pending, in progress
+                            or resolved.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURES -->
+        <section class="home-features">
+            <div class="home-container">
+
+                <span class="home-section-tag">
+                    WHY SafeRoute?
+                </span>
+
+                <h2>Making Road Reporting Easier</h2>
+
+                <div class="home-feature-grid">
+
+                    <div class="home-feature">
+                        <span>🗺️</span>
+                        <div>
+                            <h3>Accurate Map Locations</h3>
+                            <p>Mark the affected road directly on a map.</p>
+                        </div>
+                    </div>
+
+                    <div class="home-feature">
+                        <span>📷</span>
+                        <div>
+                            <h3>Photo Evidence</h3>
+                            <p>Attach an image to explain the damage.</p>
+                        </div>
+                    </div>
+
+                    <div class="home-feature">
+                        <span>🔎</span>
+                        <div>
+                            <h3>Report Tracking</h3>
+                            <p>Check the current status using a report ID.</p>
+                        </div>
+                    </div>
+
+                    <div class="home-feature">
+                        <span>📊</span>
+                        <div>
+                            <h3>Damage Monitoring</h3>
+                            <p>Organize reports and monitor road issues.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- FINAL CALL TO ACTION -->
+        <section class="home-cta">
+            <div class="home-container">
+                <h2>See Road Damage? Report It.</h2>
+                <p>
+                    Help document road problems
+                    and make them easier to track.
+                </p>
+                <a href="/report" class="home-primary-btn">
+                    Submit a Report
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="home-footer">
+        <div class="home-container">
+            <strong>SafeRoute</strong>
+            <p>B.Tech Integrated Project</p>
+            <p class="home-footer-note">
+                Student prototype for educational testing.
+                Not an official municipal complaint service.
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>

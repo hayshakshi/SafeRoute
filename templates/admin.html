@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | SafeRoute</title>
+
+<link rel="stylesheet"
+      href="/static/style.css?v=10">
+
+</head>
+
+<body>
+    <header>
+
+<a href="/" class="logo-link">
+    <img src="{{ url_for('static', filename='SafeRoute Road Swoosh Logo.png') }}"
+         alt="SafeRoute Logo"
+         class="site-logo">
+</a>
+
+        <nav>
+            <a href="/">Home</a>
+            <a href="/reports">View Reports</a>
+            <a href="/track">Track Report</a>
+        </nav>
+
+<form method="POST" action="{{ url_for('admin_logout') }}">
+    <input type="hidden"
+           name="csrf_token"
+           value="{{ session['csrf_token'] }}">
+    <button type="submit">Logout</button>
+</form>
+
+    </header>
+
+    <section class="report-section">
+        <h1>Admin Dashboard</h1>
+        <p>Manage road damage reports and track progress.</p>
+
+        <div class="admin-stats">
+            <div class="stat-card">
+                <h3>Total Reports</h3>
+                <p>{{ total_reports }}</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Pending</h3>
+                <p>{{ pending_reports }}</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>In Progress</h3>
+                <p>{{ progress_reports }}</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Resolved</h3>
+                <p>{{ resolved_reports }}</p>
+            </div>
+        </div>
+
+<h2>Website Usage Analytics</h2>
+
+<div class="admin-stats">
+    <div class="stat-card">
+        <h3>Report Submissions</h3>
+        <p>{{ submission_count }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Report Searches</h3>
+        <p>{{ search_count }}</p>
+    </div>
+</div>
+
+<h2>Damage Type Statistics</h2>
+
+<div class="report-card">
+    {% for item in damage_stats %}
+        <p>
+            <strong>{{ item["damage_type"] }}:</strong>
+            {{ item["total"] }} reports
+        </p>
+    {% else %}
+        <p>No damage reports available.</p>
+    {% endfor %}
+</div>
+
+<h2>Damage Type Chart</h2>
+
+<div class="report-card">
+    {% set max_count = damage_stats[0]["total"] if damage_stats else 1 %}
+
+    {% for item in damage_stats %}
+        <div class="damage-chart-item">
+            <div class="damage-chart-label">
+                <strong>{{ item["damage_type"] }}</strong>
+                <span>{{ item["total"] }} reports</span>
+            </div>
+
+            <progress
+                class="damage-progress"
+                value="{{ item['total'] }}"
+                max="{{ max_count }}">
+            </progress>
+        </div>
+    {% else %}
+        <p>No damage data available yet.</p>
+    {% endfor %}
+</div>
+
+        <h2>Submitted Reports</h2>
+
+        {% for report in reports %}
+        <div class="report-card">
+            <h3>Report #{{ report["id"] }}</h3>
+
+            <p><strong>Location:</strong>
+               {{ report["location"] }}</p>
+
+            <p><strong>Damage:</strong>
+               {{ report["damage_type"] }}</p>
+
+            {% if report["photo"] %}
+                <img
+                    src="{{ url_for('static', filename='uploads/' ~ report['photo']) }}"
+                    alt="Reported road damage"
+                    class="report-photo">
+            {% endif %}
+
+            <p><strong>Status:</strong>
+               {{ report["status"] }}</p>
+
+            <form method="POST"
+                  action="{{ url_for('update_status',
+                                    report_id=report['id']) }}">
+<input type="hidden"
+       name="csrf_token"
+       value="{{ session['csrf_token'] }}">
+                <label for="status-{{ report['id'] }}">
+                    Update Status
+                </label>
+
+                <select name="status"
+                        id="status-{{ report['id'] }}">
+                    <option value="Pending"
+                        {% if report["status"] == "Pending" %}selected{% endif %}>
+                        Pending
+                    </option>
+
+                    <option value="In Progress"
+                        {% if report["status"] == "In Progress" %}selected{% endif %}>
+                        In Progress
+                    </option>
+
+                    <option value="Resolved"
+                        {% if report["status"] == "Resolved" %}selected{% endif %}>
+                        Resolved
+                    </option>
+                </select>
+
+                <button type="submit">Update Status</button>
+            </form>
+        </div>
+        {% else %}
+        <p>No reports available.</p>
+        {% endfor %}
+    </section>
+</body>
+</html>
