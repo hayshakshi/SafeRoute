@@ -1,29 +1,70 @@
+
 # SafeRoute — Pothole and Road Damage Reporting System
 
 ## About the Project
-SafeRoute is an academic project focused on improving
-road safety by making it easier to report potholes
-and damaged roads.
+SafeRoute is a web-based road damage reporting system
+developed as a B.Tech academic project.
+
+The application allows users to report potholes and
+damaged roads, select affected locations, upload
+photographs, and track report status.
 
 ## Problem Statement
-Damaged roads and potholes create safety risks for
-drivers and pedestrians. Reporting these problems
-can be difficult or time-consuming.
+Potholes and damaged roads create safety risks for
+drivers and pedestrians. SafeRoute aims to simplify
+the process of reporting road damage and tracking
+complaints.
 
-## Project Objectives
-- Simplify road damage reporting
-- Improve awareness of road safety issues
-- Support better tracking of reported problems
+## Technologies Used
+- Python
+- Flask
+- SQLite
+- HTML
+- CSS
 
-## Research
-The project includes research into public experiences
-with road damage and existing reporting challenges.
+## Features
+- Submit pothole and road damage reports
+- Select road damage locations using map coordinates
+- Upload photographs of damaged roads
+- View submitted reports
+- Track reports using a report ID
+- Administrator login
+- Update report status
+- Admin dashboard with basic usage statistics
 
-## Development Status
-Academic project — work in progress.
+## Project Structure
+SafeRoute/
+  app.py
+  requirements.txt
+  templates/
+  static/
+  README.md
 
-## Future Scope
-- Road damage reporting interface
-- Location-based reporting
-- Photo upload functionality
-- Complaint tracking
+## Installation
+1. Clone the repository.
+2. Install dependencies:
+
+   pip install -r requirements.txt
+
+3. Configure the ROADWATCH_SECRET_KEY and
+   ROADWATCH_ADMIN_PASSWORD environment variables.
+
+4. Run the application:
+
+   python app.py
+
+5. Open http://127.0.0.1:5000
+
+## Research and Objectives
+The project focuses on understanding road damage
+reporting challenges and exploring how a web-based
+system can simplify reporting and tracking.
+
+## Future Improvements
+- Improve report verification
+- Add automated road damage classification
+- Improve location-based analysis
+- Enhance reporting analytics
+
+## Project Status
+Academic project — ongoing development and testing.
