@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Report Damage | RoadWatch</title>
+    <link rel="stylesheet"
+          href="/static/style.css">
+          <link rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+    <header>
+        <h2>RoadWatch</h2>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/report">Report Damage</a>
+            <a href="/reports">View Reports</a>
+            <a href="/track">Track Report</a>
+        </nav>
+    </header>
+
+    <section class="report-section">
+        <h1>Report Road Damage</h1>
+        <p>Help identify damaged roads in your area.</p>
+
+        <form class="report-form"
+              method="POST"
+              enctype="multipart/form-data">
+
+            <label for="location">Road Location</label>
+            <input
+                type="text"
+                id="location"
+                name="location"
+                placeholder="Enter road or area"
+                required>
+
+<label>Select Location on Map</label>
+<p>Click on the map to mark the damaged road.</p>
+<button type="button" id="use-location" class="location-button">
+    📍 Use My Location
+</button>
+<div id="map"></div>
+
+<input type="hidden" id="latitude" name="latitude">
+<input type="hidden" id="longitude" name="longitude">
+
+<p id="selected-location">
+    No location selected yet.
+</p>
+
+
+            <label for="damage_type">Damage Type</label>
+            <select id="damage_type"
+                    name="damage_type"
+                    required>
+                <option value="">Select type</option>
+                <option value="Pothole">Pothole</option>
+                <option value="Road Crack">Road Crack</option>
+                <option value="Broken Surface">
+                    Broken Surface
+                </option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label for="description">Description</label>
+            <textarea
+                id="description"
+                name="description"
+                rows="4"
+                placeholder="Describe the problem"
+                required></textarea>
+
+            <label for="photo">Upload Photo</label>
+            <input
+                type="file"
+                id="photo"
+                name="photo"
+                accept="image/*">
+
+            <button type="submit" class="button">
+                Submit Report
+            </button>
+        </form>
+    </section>
+
+<script>
+    // Create interactive map
+    const map = L.map("map", {
+        center: [23.0225, 72.5714],
+        zoom: 12,
+        dragging: true,
+        touchZoom: true,
+        scrollWheelZoom: true,
+        doubleClickZoom: true,
+        zoomControl: true,
+        zoomAnimation: true,
+        fadeAnimation: true,
+        markerZoomAnimation: true
+    });
+
+    L.tileLayer(
+        "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+            maxZoom: 19,
+            attribution: "&copy; OpenStreetMap contributors"
+        }
+    ).addTo(map);
+
+    let marker = null;
+
+    function selectLocation(lat, lng) {
+        if (!marker) {
+            marker = L.marker([lat, lng], {
+                draggable: true
+            }).addTo(map);
+
+            marker.on("dragend", function() {
+                const position = marker.getLatLng();
+                selectLocation(position.lat, position.lng);
+            });
+        } else {
+            marker.setLatLng([lat, lng]);
+        }
+
+        document.getElementById("latitude").value = lat;
+        document.getElementById("longitude").value = lng;
+
+        document.getElementById("selected-location")
+            .textContent =
+                "Selected: " +
+                lat.toFixed(6) + ", " +
+                lng.toFixed(6);
+    }
+
+    // Click anywhere to select a road location
+    map.on("click", function(event) {
+        selectLocation(event.latlng.lat, event.latlng.lng);
+    });
+
+    // Use current location when permitted
+    document.getElementById("use-location")
+        .addEventListener("click", function() {
+            if (!navigator.geolocation) {
+                alert("Geolocation is not supported.");
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+
+                    map.setView([lat, lng], 16);
+                    selectLocation(lat, lng);
+                },
+                function() {
+                    alert("Unable to access your location.");
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 10000
+                }
+            );
+        });
+</script>
+ 
+
+</script>
+
+</body>
+</html>
